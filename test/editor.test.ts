@@ -193,3 +193,16 @@ test('tree subtree and show expose geometry, text and parent', () => {
   assert.deepEqual(h.ok('tree g'), ['g#g', '└── circle#c  cx=1 cy=2 r=3 fill=red']);
   assert.deepEqual(h.ok('show c'), ['circle#c  parent=g#g', '  cx=1', '  cy=2', '  r=3', '  fill=red']);
 });
+
+test('all leaf geometry and text edits survive undo/redo and SVG roundtrip', () => {
+  const h = new Harness(); h.ok('create g g');
+  h.ok('create circle c 2 3 4 in g'); h.ok('create ellipse e 2 3 4 5 in g');
+  h.ok('create text t 2 3 "" in g'); h.ok('scale g 3'); h.ok('move g -1 2');
+  assert.equal(h.attr('c', 'cx'), '5'); assert.equal(h.attr('c', 'cy'), '11'); assert.equal(h.attr('c', 'r'), '12');
+  assert.equal(h.attr('e', 'rx'), '12'); assert.equal(h.attr('e', 'ry'), '15');
+  assert.equal(h.attr('t', 'x'), '5'); assert.equal(h.attr('t', 'y'), '11');
+  h.ok('set t text "new text"'); h.ok('undo'); assert.equal(h.editor.canvas.find('t').content, '');
+  h.ok('redo'); assert.equal(h.editor.canvas.find('t').content, 'new text');
+  const codec = new SvgCodec();
+  assert.equal(codec.encode(codec.decode(codec.encode(h.editor.canvas)).canvas), codec.encode(h.editor.canvas));
+});
