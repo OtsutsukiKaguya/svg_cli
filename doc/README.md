@@ -81,4 +81,6 @@ infrastructure --> model
 
 ## Git 提交与交付
 
-开发按架构骨架、模型/命令、CLI/IO/测试、最终自查分步提交。最终本地提交标记为 `final`。远程推送需要用户提供仓库地址；没有地址时不能把本地提交等同于完成远程提交。提交截止时间未提供，无法验证是否早于截止。
+开发按架构骨架、模型/命令、CLI/IO/测试、最终自查分步提交。最终本地提交标记为 `final`。提交截止时间未提供，无法验证是否早于截止。
+
+用户指定远程仓库：`https://github.com/OtsutsukiKaguya/svg_cli.git`，配置为 origin。2026-10-23 检查远程时 GitHub 返回 `Invalid username or token`，因此尚未完成推送，也未能确认远程是否已有分支或同名标签。需先修复本机 GitHub 凭据，再用 `git ls-remote --symref origin` 检查状态；确认没有冲突后执行 `git push -u origin master` 和 `git push origin final`。不要强制覆盖远程历史或标签。
