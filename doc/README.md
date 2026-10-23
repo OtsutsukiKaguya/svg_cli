@@ -83,4 +83,4 @@ infrastructure --> model
 
 开发按架构骨架、模型/命令、CLI/IO/测试、最终自查分步提交。最终本地提交标记为 `final`。提交截止时间未提供，无法验证是否早于截止。
 
-用户指定远程仓库：`https://github.com/OtsutsukiKaguya/svg_cli.git`，配置为 origin。2026-10-23 检查远程时 GitHub 返回 `Invalid username or token`，因此尚未完成推送，也未能确认远程是否已有分支或同名标签。需先修复本机 GitHub 凭据，再用 `git ls-remote --symref origin` 检查状态；确认没有冲突后执行 `git push -u origin master` 和 `git push origin final`。不要强制覆盖远程历史或标签。
+用户指定远程仓库：`https://github.com/OtsutsukiKaguya/svg_cli.git`，配置为 origin。2026-10-23 首次检查因 GitHub 凭据无效而阻塞；用户修复凭据后，确认远程为空，并按开发顺序分五批推送了现有提交（架构骨架、模型/命令、CLI/IO/测试、最终自查、首次认证阻塞记录）。本次补充交付记录作为最后一次文档提交，`final` 指向该提交。开发历史完整保留，没有合并成一次大提交或覆盖远程历史。
